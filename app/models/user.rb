@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
          validates :first_name, presence: true
          validates :last_name, presence: true
-         validates :zip_code, numericality: { only_integer: true }
-         validates :zip_code, length: { is: 8 }
+         validates_format_of :zip_code, :with => /\A^\d{5}-\d{3}$\Z/i, :on => :create
          has_one_attached :photo
 end
