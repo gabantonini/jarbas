@@ -1,4 +1,8 @@
 class ServicesController < ApplicationController
+  before_action :find_service, only: [:show]
+
+  def show
+  end
 
   def new
     @service = Service.new
@@ -6,7 +10,6 @@ class ServicesController < ApplicationController
 
   def create
   	@service = Service.new(service_params)
-  	
   end
 
   def edit
