@@ -3,4 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
+
+         validates :first_name, presence: true
+         validates :last_name, presence: true
+         validates_format_of :zip_code, :with => /\A^\d{5}-\d{3}$\Z/i
+         has_one_attached :photo
 end
