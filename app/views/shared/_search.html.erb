@@ -1,6 +1,6 @@
-<%= simple_form_for :query, url: root_path, method: :get do |f| %>
+<%= simple_form_for :search, url: root_path, method: :get do |f| %>
   <div class="search-form-control form-group">
-    <%= f.input :query, class: "form-control string required", id: "query", label: false %>
+    <%= f.input :query, class: "form-control string required", label: false %>
     <button name="button" type="submit" class="btn btn-flat">
       <i class="fas fa-search"></i> Search
     </button>
