@@ -9,9 +9,14 @@
 require 'faker'
 require 'open-uri'
 
+puts 'Cleaning all users and services'
+User.destroy_all
+puts 'User and services cleaned'
+
+# file = URI.open("https://source.unsplash.com/collection/9300133/#{rand(1..18)}")
+
 puts "creating users"
 20.times do 
-    # file = URI.open("https://source.unsplash.com/collection/9300133/#{rand(1..18)}")
     user = User.new()
     user.first_name = Faker::Name.first_name  
     user.last_name =  Faker::Name.last_name 
@@ -24,3 +29,22 @@ puts "creating users"
     puts "saved"
 
 end
+
+puts 'Creating services for each user'
+
+@users = User.all
+@users.each do |user|
+    rand(3..10).times do
+        service = Service.new
+        service.name = Faker::Verb.ing_form
+        service.description = Faker::ChuckNorris.fact
+        service.price = rand(1..400)
+        service.time_to_answer = rand(1..7)
+        service.disponibility = Faker::Date.between(from: Date.today, to: 8.days.from_now)
+        service.user = user
+        # service.photo.attach(io: file, filename: 'photo.jpg', content_type: 'image/jpg')
+        service.save ? (puts 'service saved') : (puts "invalid service: #{service.errors.full_messages}")
+    end
+end
+
+puts 'Users and services created'
