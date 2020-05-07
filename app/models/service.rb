@@ -6,4 +6,5 @@ class Service < ApplicationRecord
   validates :price, numericality: true
   validates :time_to_answer, numericality: { only_integer: true }
   validates :disponibility, presence: true
+  validates :user, presence: true
 end

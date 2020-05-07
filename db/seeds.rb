@@ -30,3 +30,20 @@ puts "creating users"
 end
 
 puts 'Creating services for each user'
+
+@users = User.all
+@users.each do |user|
+    rand(3..10).times do
+        service = Service.new
+        service.name = Faker::Verb.ing_form
+        service.description = Faker::ChuckNorris.fact
+        service.price = rand(1..400)
+        service.time_to_answer = rand(1..7)
+        service.disponibility = Faker::Date.between(from: Date.today, to: 8.days.from_now)
+        service.user = user
+        # service.photo = 
+        service.save ? (puts 'service saved') : (puts "invalid service: #{service.errors.full_messages}")
+    end
+end
+
+puts 'Users and services created'

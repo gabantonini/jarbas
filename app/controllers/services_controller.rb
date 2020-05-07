@@ -15,20 +15,14 @@ class ServicesController < ApplicationController
   def create
   	@service = Service.new(service_params)
     @service.user = current_user
-    @service.save!
-    if @service.save
-      redirect_to service_path(@service)
-    else
-      render :new
-    end
+    @service.save ? (redirect_to service_path(@service)) : (render :new)
   end
 
   def edit
   end
 
   def update
-    @service.update(service_params)
-    redirect_to service_path(@service)
+    @service.update(service_params) ? (redirect_to service_path(@service)) : (render :edit)
   end
 
   def destroy
