@@ -1,5 +1,9 @@
 class Service < ApplicationRecord
-  belongs_to :category
   belongs_to :user
-  belongs_to :condominio
+  has_one_attached :photo
+  validates :name, length: { minimum: 2 }
+  validates :description, length: { maximum: 500 }
+  validates :price, numericality: true
+  validates :time_to_answer, numericality: { only_integer: true }
+  validates :disponibility, presence: true
 end

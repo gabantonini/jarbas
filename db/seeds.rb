@@ -9,6 +9,10 @@
 require 'faker'
 require 'open-uri'
 
+puts 'Cleaning all users and services'
+User.destroy_all
+puts 'User and services cleaned'
+
 puts "creating users"
 20.times do 
     # file = URI.open("https://source.unsplash.com/collection/9300133/#{rand(1..18)}")
@@ -24,3 +28,5 @@ puts "creating users"
     puts "saved"
 
 end
+
+puts 'Creating services for each user'
