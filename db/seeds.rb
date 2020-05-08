@@ -10,7 +10,6 @@ require 'faker'
 require 'open-uri'
 
 puts 'Cleaning all users and services'
-Service.destroy_all
 User.destroy_all
 puts 'User and services cleaned'
 
@@ -57,9 +56,9 @@ puts "Creating bookings"
         booking.service_id = rand(1..100)
         booking.user = user
         booking.date = Faker::Date.between(from: Date.today, to: 8.days.from_now)
+
         # Não sei quais vão ser o status ainda, depois a gente arruma os possiveis
         booking.status = ["Confirmado", "Aguardando confirmação", "Declinado"].sample
-
         booking.save ? (puts 'booking saved') : (puts "invalid booking: #{service.errors.full_messages}")
 
     end
