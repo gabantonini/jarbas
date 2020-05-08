@@ -1,5 +1,5 @@
 <div class="container d-flex justify-content-between">
-<div class="my_bookings w-50">
+<div class="my_bookings w-50 p-1">
 <h1>Services you've booked</h1>
     <% if @my_bookings.empty?  %>
     <div class="card">
@@ -18,7 +18,7 @@
     <% end %>
     <% end %>
 </div>
-<div class="my_services_booked w-50">
+<div class="my_services_booked w-50 p-1">
 <h1>Services booked from you</h1>
     <% if @my_services_booked.empty?  %>
     <div class="card">
