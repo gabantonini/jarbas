@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :services do
-    resources :bookings
+    resources :bookings , only: [:new, :create]
 
   end
+
+  resources :bookings , except: [:new, :create]
   
   get 'bookings/:booking_id/reviews/new', to: "reviews#new" 
   post 'bookings/:booking_id/reviews', to: "reviews#create", as: "booking_reviews"

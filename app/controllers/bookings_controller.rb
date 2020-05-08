@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
       def new
         @service = Service.find(params[:service_id])
         @booking = Booking.new
-        @booking.user = current_user
+        #@booking.user = current_user
         @booking.service = @service
       end
     
@@ -20,7 +20,8 @@ class BookingsController < ApplicationController
         @booking = Booking.new(booking_params)
         @booking.user = current_user
         @booking.service = @service
-        @booking.save ? (redirect_to service_booking_path(@service, @booking)) : (render :new)
+        @booking.status = "Aguardando confirmação"
+        @booking.save ? (redirect_to booking_path(@booking)) : (render :new)
       end
     
       def edit
