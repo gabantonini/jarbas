@@ -67,7 +67,7 @@ puts "Creating bookings"
 
         # Não sei quais vão ser o status ainda, depois a gente arruma os possiveis
         booking.status = ["Confirmado", "Aguardando confirmação", "Declinado"].sample
-        booking.save ? (puts 'booking saved') : (puts "invalid booking: #{service.errors.full_messages}")
+        booking.save ? (puts 'booking saved') : (puts "invalid booking: #{booking.errors.full_messages}")
 
     end
 end
