@@ -9,4 +9,5 @@ class User < ApplicationRecord
          validates_format_of :zip_code, :with => /\A^\d{5}-\d{3}$\Z/i
          has_one_attached :photo
          has_many :services, dependent: :destroy
+         has_many :reviews, dependent: :destroy
 end
