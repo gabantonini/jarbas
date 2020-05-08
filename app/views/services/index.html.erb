@@ -5,6 +5,8 @@
 			<h2><%= service.name %> by <%= service.user.first_name %></h2>
 			<% if service.photo.attached? %>
 				<%= cl_image_tag service.photo.key, height: 300, width: 500, crop: :fill %>
+			<% else %>
+				<%= image_tag 'service_default.png' %>
 			<% end %>
 			<p><%= service.description %></p>
 			<p><%= service.price %></p>
