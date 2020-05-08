@@ -1,0 +1,15 @@
+<h1>Change your review for:</h1>
+<h2><%= @booking.service.name %> on <%= @booking.date %></h2>
+
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-8">
+			<%= simple_form_for @review do |f| %>
+				<%= f.input :content, label: "Write your review:" %>
+				<%= f.input :rating %>
+				<%= f.submit class: "btn btn-primary"%>
+			<% end %>
+		</div>
+	</div>
+</div>
