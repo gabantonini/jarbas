@@ -28,6 +28,12 @@ class ReviewsController < ApplicationController
   	end
   end
 
+  def destroy
+    service = @review.service
+    @review.destroy
+    redirect_to service
+  end
+
   private
 
   def review_params
