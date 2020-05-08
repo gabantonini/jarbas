@@ -11,7 +11,8 @@ require 'open-uri'
 
 puts 'Cleaning all users and services'
 User.destroy_all
-puts 'User and services cleaned'
+puts 'User, services, booking and reviews cleaned'
+puts "Booking: #{Booking.count} Users: #{User.count} Reviews: #{Review.count} Services: #{Service.count}"
 
 puts "creating users"
 10.times do 
@@ -71,7 +72,21 @@ puts "Creating bookings"
     end
 end
 
+puts "Creating reviews"
+
+Booking.all.each do |booking|
+    content = Faker::Restaurant.review
+    rating = rand(0..5)
+    review = Review.new(content: content, rating: rating, booking: booking)
+    
+    puts "invalid review: #{booking.errors.full_messages}" unless review.valid?
+
+    review.save ? (puts 'review saved') : (puts "invalid review: #{booking.errors.full_messages}")
+end
+
+
 puts "#{User.count } Users have been created"
 puts "#{Service.count } Services have been created"
 puts "#{Booking.count } Bookings have been created"
+puts "#{Review.count} reviews created"
 
