@@ -15,7 +15,7 @@ class Service < ApplicationRecord
 
   def rating
     reviews = self.reviews
-    sum_rating = reviews.map { |review| review.rating}.sum
+    sum_ratings = reviews.map { |review| review.rating}.sum
     # sum_ratings = Review.select('rating').joins(bookings: [{service: Service.first}]) - NOT WORKING
     number_of_ratings = reviews.count
     if number_of_ratings.zero?

@@ -8,12 +8,11 @@ Rails.application.routes.draw do
 
   end
 
-  resources :bookings , except: [:new, :create]
-  
-  get 'bookings/:booking_id/reviews/new', to: "reviews#new" 
-  post 'bookings/:booking_id/reviews', to: "reviews#create", as: "booking_reviews"
+  resources :bookings , except: [:new, :create] do
+    resources :reviews, only: [:new, :create]    
+  end
+
+  resources :reviews, only: [:update, :edit, :destroy]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get 'reviews/:id/edit', to: "reviews#edit"
-  put 'reviews', to: "reviews#update", as: "review"
 
 end
