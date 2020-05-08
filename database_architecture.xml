@@ -105,7 +105,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="855" y="616" name="reviews">
+<table x="978" y="70" name="reviews">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -121,8 +121,7 @@
 </row>
 <row name="user_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="users" row="id" />
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
