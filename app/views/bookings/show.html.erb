@@ -1,9 +1,10 @@
 <div class="container">
 <div class="card">
-<h2><%= @booking.id %></h2>
-<p><%= @booking.service_id %></p>
-<p><%= @booking.user_id %></p>
-<p><%= @booking.date %></p>
-<p><%= @booking.status %></p>
+<h2>Service name: <%= @booking.service.name %></h2>
+<p>Service decription: <%= @booking.service.description %></p>
+<p>Service provider <%= @booking.service.user.first_name %> <%= @booking.service.user.last_name %></p>
+<p>Price: R$<%= @booking.service.price %></p>
+<p>Date: <%= @booking.date %></p>
+<p>Status: <%= @booking.status %></p>
 </div>
 </div>

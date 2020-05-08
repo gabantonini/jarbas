@@ -9,12 +9,17 @@ class BookingsController < ApplicationController
       end
     
       def new
+        @service = Service.find(params[:service_id])
         @booking = Booking.new
+        @booking.service = @service
       end
     
       def create
+        @service = Service.find(params[:service_id])
         @booking = Booking.new(booking_params)
         @booking.user = current_user
+        @booking.service = @service
+        @booking.status = "Aguardando confirmação"
         @booking.save ? (redirect_to booking_path(@booking)) : (render :new)
       end
     
@@ -35,7 +40,7 @@ class BookingsController < ApplicationController
       private
 
       def booking_params
-          params.require(:booking).permit(:service_id, :user_id, :date, :status)
+          params.require(:booking).permit(:date)
       end
   
 end
