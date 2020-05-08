@@ -101,7 +101,6 @@ ActiveRecord::Schema.define(version: 2020_05_08_155713) do
   add_foreign_key "bookings", "services"
   add_foreign_key "bookings", "users"
   add_foreign_key "reviews", "bookings"
-  add_foreign_key "reviews", "users"
   add_foreign_key "services", "service_categories"
   add_foreign_key "services", "users"
 end
