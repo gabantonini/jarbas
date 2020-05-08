@@ -1,10 +1,6 @@
-<%= simple_form_for  @booking do |f| %>
-  <%= f.input :service_id %>
-  <%= f.input :user_id %>
+<%= simple_form_for  [@service, @booking] do |f| %>
   <%= f.input :date %>
-  <%= f.input :status %>
-
-  <%= f.submit "Submit review", class: "btn btn-primary" %>
+  <%= f.submit "Book", class: "btn btn-primary" %>
 <% end %>
 
 

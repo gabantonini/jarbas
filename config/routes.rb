@@ -3,8 +3,10 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
-  resources :services
-  resources :bookings
+  resources :services do
+    resources :bookings
+
+  end
   
   get 'bookings/:booking_id/reviews/new', to: "reviews#new" 
   post 'bookings/:booking_id/reviews', to: "reviews#create", as: "booking_reviews"
