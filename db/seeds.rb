@@ -9,9 +9,12 @@
 require 'faker'
 require 'open-uri'
 
-puts 'Cleaning all users and services'
+puts 'Cleaning all users, service categories and services'
+Booking.destroy_all
 User.destroy_all
-puts 'User, services, booking and reviews cleaned'
+
+ServiceCategory.destroy_all
+puts 'User, service categories, services, bookings and reviews cleaned'
 puts "Booking: #{Booking.count} Users: #{User.count} Reviews: #{Review.count} Services: #{Service.count}"
 
 puts "creating users"
@@ -33,9 +36,22 @@ puts "creating users"
 
 end
 
+puts 'Creating Service Categories'
+
+# Definir depois as categorias de serviços que queremos
+categories = ["Assistência Técnica", "Aulas", "Autos", "Consultoria",
+    "Design e Tecnologia", "Eventos", "Moda e Beleza", "Reformas", "Saúde", "Serviços Domésticos"]
+categories.each do |category|
+    ServiceCategory.create(name: category)
+end
+
+puts 'Service categories created'
+
 puts 'Creating services for each user'
 
 @users = User.all
+@categories = ServiceCategory.all
+
 @users.each do |user|
     rand(2..10).times do
         # Slow but working
@@ -48,6 +64,7 @@ puts 'Creating services for each user'
         service.time_to_answer = rand(1..7)
         service.disponibility = Faker::Date.between(from: Date.today, to: 8.days.from_now)
         service.user = user
+        service.service_category = @categories.sample
         # puts 'Adding photo to service'
         # service.photo.attach(io: file, filename: 'service.png', content_type: 'image/png')
         service.save ? (puts 'service saved') : (puts "invalid service: #{service.errors.full_messages}")
@@ -57,18 +74,18 @@ end
 
 puts "Creating bookings"
 
-#@users = User.all
+@services = Service.all
+
 @users.each do |user|
     rand(1..5).times do
         booking = Booking.new
-        booking.service_id = rand(1..Service.count)
+        booking.service = @services.sample
         booking.user = user
         booking.date = Faker::Date.between(from: Date.today, to: 8.days.from_now)
 
         # Não sei quais vão ser o status ainda, depois a gente arruma os possiveis
         booking.status = ["Confirmado", "Aguardando confirmação", "Declinado"].sample
         booking.save ? (puts 'booking saved') : (puts "invalid booking: #{booking.errors.full_messages}")
-
     end
 end
 
@@ -89,4 +106,4 @@ puts "#{User.count } Users have been created"
 puts "#{Service.count } Services have been created"
 puts "#{Booking.count } Bookings have been created"
 puts "#{Review.count} reviews created"
-
+puts "#{ServiceCategory.count} Service Categories have been created"
