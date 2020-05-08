@@ -56,8 +56,7 @@ end
 
 puts "Creating bookings"
 
-# @services = Service.all
-
+#@users = User.all
 @users.each do |user|
     rand(1..5).times do
         booking = Booking.new
