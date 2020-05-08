@@ -10,4 +10,6 @@ class Service < ApplicationRecord
   validates :time_to_answer, numericality: { only_integer: true }
   validates :disponibility, presence: true
   validates :user, presence: true
+  belongs_to :service_category
+  validates :service_category, presence: true
 end
