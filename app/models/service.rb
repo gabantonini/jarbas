@@ -12,4 +12,14 @@ class Service < ApplicationRecord
   validates :user, presence: true
   belongs_to :service_category
   validates :service_category, presence: true
+
+  def rating
+    number_of_ratings = self.reviews.count
+    sum_ratings = Review.joins(:booking).where('service_id = ?', self.id).sum(:rating)
+    if number_of_ratings.zero?
+      "No rating yet"
+    else
+      sum_ratings.fdiv(number_of_ratings).round(1)
+    end
+  end
 end

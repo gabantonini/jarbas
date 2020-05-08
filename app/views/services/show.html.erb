@@ -2,7 +2,14 @@
 	<div class="row justify-content-center">
 		<div class="col-sm-8">
 			<h2><%= @service.name %> by <%= @service.user.first_name %></h2>
-			<!-- cl_image_tag @service.photo.key, height: 200, width: 300, crop: :fill -->
+
+			<p><%= @service.rating %> <i class="far fa-star"></i></p>
+			<% if @service.photo.attached? %>
+				<%= cl_image_tag @service.photo.key, height: 300, width: 500, crop: :fill %>
+			<% else %>
+				<%= image_tag 'service_default.png' %>
+			<% end %>
+
 			<p><%= @service.description %></p>
 			<p><%= @service.price %></p>
 			<p><%= @service.time_to_answer %></p>
