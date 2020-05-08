@@ -56,11 +56,12 @@ end
 
 puts "Creating bookings"
 
-#@users = User.all
+# @services = Service.all
+
 @users.each do |user|
     rand(1..5).times do
         booking = Booking.new
-        booking.service_id = rand(1..100)
+        booking.service_id = rand(1..Service.count)
         booking.user = user
         booking.date = Faker::Date.between(from: Date.today, to: 8.days.from_now)
 
@@ -73,5 +74,5 @@ end
 
 puts "#{User.count } Users have been created"
 puts "#{Service.count } Services have been created"
-puts "#{Booking.count } Services have been created"
+puts "#{Booking.count } Bookings have been created"
 
