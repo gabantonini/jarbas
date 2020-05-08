@@ -1,5 +1,18 @@
-<ul>
-  <% @bookings.each do |booking| %>
-    <li><%= booking.id %></li>
-  <% end %>
-</ul>
+<div class="container">
+    <% if @bookings.empty?  %>
+    <div class="card">
+
+        <p> Nothing booked yet!</p>
+    </div>
+    <% else  %>
+    <% @bookings.each do |booking| %>
+    <div class="card">
+
+        <p> Service description: <%= booking.service.description %></p>
+        <p> Service Provider: <%= booking.service.user.first_name %></p>
+        <p> Date: <%= booking.date %></p>
+        <p> Status: <%= booking.status %></p>
+    </div>
+    <% end %>
+    <% end %>
+</div>
