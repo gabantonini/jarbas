@@ -14,10 +14,8 @@ class Service < ApplicationRecord
   validates :service_category, presence: true
 
   def rating
-    reviews = self.reviews
-    sum_ratings = reviews.map { |review| review.rating}.sum
-    # sum_ratings = Review.select('rating').joins(bookings: [{service: Service.first}]) - NOT WORKING
-    number_of_ratings = reviews.count
+    number_of_ratings = self.reviews.count
+    sum_ratings = Review.joins(:booking).where('service_id = ?', self.id).sum(:rating)
     if number_of_ratings.zero?
       "No rating yet"
     else
