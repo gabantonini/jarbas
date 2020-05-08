@@ -12,6 +12,7 @@
 			<p><%= service.price %></p>
 			<p><%= service.time_to_answer %></p>
 			<p><%= service.disponibility %></p>
+			<%= link_to  "Book this service", new_service_booking_path(service), class: "btn btn-primary" %>
 			<hr>
 			<% end %>
 		</div>
