@@ -2,11 +2,33 @@
 	<div class="row justify-content-center">
 		<div class="col-sm-8">
 			<h2><%= @service.name %> by <%= @service.user.first_name %></h2>
-			<%= cl_image_tag @service.photo.key, height: 200, width: 300, crop: :fill %>
+			<!-- cl_image_tag @service.photo.key, height: 200, width: 300, crop: :fill -->
 			<p><%= @service.description %></p>
 			<p><%= @service.price %></p>
 			<p><%= @service.time_to_answer %></p>
 			<p><%= @service.disponibility %></p>
 		</div>
 	</div>
+
+	<!-- Show reviews -->
+	<div class="row justify-content-center">
+		<div class="col-sm-8">
+			<h2>Confira o que nossos usuários falarm desse serviço:</h2>
+			
+			<% @service.reviews.each do |review| %>
+				<div class="card">
+					<div class="d-flex justify-content-between p-1">
+						<h3><%= review.user.name %></h3>
+						<p>
+							<% review.rating.times do %>
+								<i class="fa fa-star"></i>
+							<% end %>
+								
+						</p>	
+					</div>
+					<p class="p-1"><%= review.content %></p>	
+				</div>
+			<% end %>
+		</div>
+	</div>	
 </div>
