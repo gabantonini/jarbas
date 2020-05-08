@@ -60,18 +60,18 @@ puts "Creating bookings"
 @users.each do |user|
     rand(1..5).times do
         booking = Booking.new
-        booking.service_id = rand(1..100)
+        booking.service_id = rand(1..Service.count)
         booking.user = user
         booking.date = Faker::Date.between(from: Date.today, to: 8.days.from_now)
 
         # Não sei quais vão ser o status ainda, depois a gente arruma os possiveis
         booking.status = ["Confirmado", "Aguardando confirmação", "Declinado"].sample
-        booking.save ? (puts 'booking saved') : (puts "invalid booking: #{service.errors.full_messages}")
+        booking.save ? (puts 'booking saved') : (puts "invalid booking: #{booking.errors.full_messages}")
 
     end
 end
 
 puts "#{User.count } Users have been created"
 puts "#{Service.count } Services have been created"
-puts "#{Booking.count } Services have been created"
+puts "#{Booking.count } Bookings have been created"
 
