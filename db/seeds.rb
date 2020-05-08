@@ -9,13 +9,17 @@
 require 'faker'
 require 'open-uri'
 
-puts 'Cleaning all users, service categories and services'
+puts 'Cleaning all users, service categories, services, bookings and reviews'
 Booking.destroy_all
 User.destroy_all
-
 ServiceCategory.destroy_all
-puts 'User, service categories, services, bookings and reviews cleaned'
-puts "Booking: #{Booking.count} Users: #{User.count} Reviews: #{Review.count} Services: #{Service.count}"
+
+puts '-----------------------------------------------------------------'
+puts 'CLEANED: User, service categories, services, bookings and reviews'
+puts '-----------------------------------------------------------------'
+puts "Booking: #{Booking.count} Users: #{User.count} Reviews: #{Review.count} 
+Services: #{Service.count} Service Categories: #{ServiceCategory.count}"
+puts '-----------------------------------------------------------------'
 
 puts "creating users"
 10.times do 
@@ -32,10 +36,11 @@ puts "creating users"
     # user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
     user.password = "123456"    
     user.save ? (puts "user saved") : (puts "invalid user: #{user.errors.full_messages}")
-    puts "saved"
-
 end
 
+puts '-----------------------------------------------------------------'
+puts 'CREATED: Users'
+puts '-----------------------------------------------------------------'
 puts 'Creating Service Categories'
 
 # Definir depois as categorias de serviços que queremos
@@ -45,8 +50,9 @@ categories.each do |category|
     ServiceCategory.create(name: category)
 end
 
-puts 'Service categories created'
-
+puts '-----------------------------------------------------------------'
+puts 'CREATED: Service categories'
+puts '-----------------------------------------------------------------'
 puts 'Creating services for each user'
 
 @users = User.all
@@ -71,7 +77,9 @@ puts 'Creating services for each user'
     end
 end
 
-
+puts '-----------------------------------------------------------------'
+puts 'CREATED: Services'
+puts '-----------------------------------------------------------------'
 puts "Creating bookings"
 
 @services = Service.all
@@ -89,6 +97,9 @@ puts "Creating bookings"
     end
 end
 
+puts '-----------------------------------------------------------------'
+puts "CREATED: Bookings"
+puts '-----------------------------------------------------------------'
 puts "Creating reviews"
 
 Booking.all.each do |booking|
@@ -101,6 +112,9 @@ Booking.all.each do |booking|
     review.save ? (puts 'review saved') : (puts "invalid review: #{booking.errors.full_messages}")
 end
 
+puts '-----------------------------------------------------------------'
+puts "CREATED: Reviews"
+puts '-----------------------------------------------------------------'
 
 puts "#{User.count } Users have been created"
 puts "#{Service.count } Services have been created"
