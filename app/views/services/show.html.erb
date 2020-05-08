@@ -14,17 +14,27 @@
 	<div class="row justify-content-center">
 		<div class="col-sm-8">
 			<h2>Confira o que nossos usuários falarm desse serviço:</h2>
-			<% raise %>
 			<% @service.reviews.each do |review| %>
-				<div class="card">
+				<div class="card my-2">
 					<div class="d-flex justify-content-between p-1">
-						<h3><%= review.user.name %></h3>
-						<p>
-							<% review.rating.times do %>
-								<i class="fa fa-star"></i>
+						<h3><%= review.user.first_name.capitalize %></h3>
+						<div>
+							
+							<% if review.user == current_user %>
+								<%= link_to edit_review_path(review) do  %>
+									<i class="fas fa-edit"></i>
+								<% end %>
+								<%= link_to review_path(review), method: :delete do  %>
+									<i class="fas fa-trash-alt"></i>
+								<% end %>
+								- 
 							<% end %>
-								
-						</p>	
+
+
+							<% review.rating.times do %>
+								<i class="far fa-star"></i>
+							<% end %>
+						</div>	
 					</div>
 					<p class="p-1"><%= review.content %></p>	
 				</div>

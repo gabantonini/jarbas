@@ -11,7 +11,7 @@ class ReviewsController < ApplicationController
   	@review.user = current_user
   	@review.booking = Booking.find(params[:booking_id])
   	if @review.save
-  		redirect_to root_path
+  		redirect_to @review.service
   	else
   		render :new
   	end
@@ -22,7 +22,7 @@ class ReviewsController < ApplicationController
 
   def update
   	if @review.update(review_params)
-  		redirect_to @root_path
+  		redirect_to @review.service
   	else
   		render :edit
   	end
