@@ -3,6 +3,11 @@ class ServicesController < ApplicationController
 
   def index
     @services = Service.all
+    @search = params[:search]
+    if @search.present?
+      @query = @search[:query]
+      @services = Service.where("name ILIKE ?", "%#{@query}%")
+    end
   end
 
   def show
