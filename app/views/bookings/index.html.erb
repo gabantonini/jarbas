@@ -36,12 +36,12 @@
             <div class="buttons d-flex justify-content-around"> 
             <% if booking.pending_confirmation?  %>
 
-            <%= form_for(booking, remote: true) do |fa| %>
+            <%= form_for booking do |fa| %>
             <%= fa.hidden_field :status, value: "Confirmado" %>
             <%= fa.submit "Confirmar", class: "btn btn-sm btn-outline-success" %>
             <% end %>
 
-            <%= form_for(booking, remote: true) do |fa| %>
+            <%= form_for booking do |fa| %>
             <%= fa.hidden_field :status, value: "Declinado" %>
             <%= fa.submit "Rejeitar", class: "btn btn-sm btn-outline-danger" %>
             <% end %>
@@ -49,7 +49,7 @@
             <% end %>
 
             <% if booking.confirmed?  %>
-            <%= form_for(booking, remote: true) do |fa| %>
+            <%= form_for booking do |fa| %>
             <%= fa.hidden_field :status, value: "Cancelado" %>
             <%= fa.submit "Cancelar", class: "btn btn-sm btn-outline-dark" %>
             <% end %>
