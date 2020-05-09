@@ -4,7 +4,7 @@ class Booking < ApplicationRecord
   has_one :review, dependent: :destroy
 
   def add_review?
-  	(["Realizado", "Cancelado"].include?(status)) & (self.review.nil?)
+  	(["Realizado", "Cancelado"].include?(status)) && (self.review.nil?)
   end
   
   def self.pending_reviews?(user)
