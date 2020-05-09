@@ -1,6 +1,12 @@
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-sm-8">
+			<% if @search.present? %>
+			    <h1>Serviços contendo: <strong><%= @query %></strong></h1>
+			  <% else %>
+			    <h1><strong>Todos os serviços que temos</strong></h1>
+			<% end %>
+			<hr>
 			<% @services.each do |service| %>
 			<h2><%= service.name %> by <%= service.user.first_name %></h2>
 			<% if service.photo.attached? %>

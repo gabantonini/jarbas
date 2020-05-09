@@ -1,6 +1,7 @@
 <%= simple_form_for(service) do |f| %>
 
     <div class="form-inputs">
+        <%= f.association :service_category %>
         <%= f.input :name,
         required: true,
         autofocus: true,
