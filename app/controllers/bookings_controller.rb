@@ -1,8 +1,8 @@
 class BookingsController < ApplicationController
 
     def index
-        @my_bookings = Booking.where('user_id = ?', current_user.id)
-        @my_services_booked = Booking.joins('JOIN services ON services.id = bookings.service_id').where('services.user_id = ?', current_user.id) 
+        @my_bookings = Booking.where('user_id = ?', current_user.id).order('date ASC')
+        @my_services_booked = Booking.joins('JOIN services ON services.id = bookings.service_id').where('services.user_id = ?', current_user.id).order('date ASC')
       end
     
       def show
