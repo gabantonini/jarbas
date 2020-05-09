@@ -25,9 +25,9 @@
 	<div class="row justify-content-center my-4">
 		<div class="col-sm-8">
 			<% if @service.reviews.empty? %>
-				<h2>Esse serviço ainda não possui nenhuma aliação</h2>
+				<h2>Esse serviço ainda não possui nenhuma avaliação</h2>
 			<% else %>
-				<h2>Confira o que nossos usuários falarm desse serviço:</h2>
+				<h2>Confira o que nossos usuários falaram desse serviço:</h2>
 				<% @service.reviews.each do |review| %>
 					<div class="card my-2">
 						<div class="d-flex justify-content-between p-1">
