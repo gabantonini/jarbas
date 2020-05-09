@@ -10,10 +10,26 @@
     <% @my_bookings.each do |booking| %>
     <div class="card">
 
+        <%= link_to booking.service.name, booking.service  %>
         <p> Service description: <%= booking.service.description %></p>
         <p> Service Provider: <%= booking.service.user.first_name %></p>
         <p> Date: <%= booking.date %></p>
         <p> Status: <%= booking.status %></p>
+        <% if booking.add_review? %>
+            <%= link_to new_booking_review_path(booking) do %>
+                Write a review <i class="fas fa-edit"></i>
+            <% end %>
+        <% elsif !booking.review.nil? %>
+            <div class="d-flex justify-content-between">
+                <%= link_to "Your review:", booking.review  %> 
+                <div>
+                    <% booking.review.rating.times do %>
+                        <i class="far fa-star"></i>
+                    <% end %>
+                </div>   
+            </div>
+   
+        <% end %>
     </div>
     <% end %>
     <% end %>

@@ -14,3 +14,14 @@
     </button>
   </div>
 <% end %>
+
+<% if user_signed_in? %>
+  <% if Booking.pending_reviews?(current_user) %>
+    <%= link_to bookings_path do  %>
+      <div class="alert alert-light w-100 my-4" role="alert">
+        <% booking_count = Booking.pending_reviews?(current_user) %>
+        You have <%= booking_count %> booking<%= booking_count > 1 ? "s" : "" %> pending a review. Click to leave a review.
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
