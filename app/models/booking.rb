@@ -22,7 +22,11 @@ class Booking < ApplicationRecord
   
   def self.pending_reviews?(user)
      my_bookings = Booking.where('user_id = ? AND status = ? AND date > ?', user.id, "Realizado", Date.today - 7)
-     my_bookings.count.zero? ? false : my_bookings.count
+     my_bookings_without_review = []
+     my_bookings.each do |booking|
+      my_bookings_without_review << booking if booking.review.nil? 
+     end
+     my_bookings_without_review.count.zero? ? false : my_bookings_without_review.count
   end
 
 end
