@@ -82,6 +82,12 @@
                     <%= fa.submit "Cancelar", class: "btn btn-sm btn-outline-dark" %>
                     <% end %>
 
+                   <%= form_for booking, data: {confirm: "Are you sure ?"} do |fa| %>
+                    <%= fa.hidden_field :status, value: "Realizado" %>
+                    <%= fa.submit "Realizado", class: "btn btn-sm btn-outline-success" %>
+                    <% end %>
+                    
+
                     <% end %>
 
                 </div>
