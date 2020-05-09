@@ -21,6 +21,15 @@ puts "Booking: #{Booking.count} Users: #{User.count} Reviews: #{Review.count}
 Services: #{Service.count} Service Categories: #{ServiceCategory.count}"
 puts '-----------------------------------------------------------------'
 
+puts 'Creating test user'
+
+User.create(first_name: "Gabriel", last_name: "Jarbas", address: "Rua Mourato Coelho 1404 Sao Paulo", zip_code: "05417-002
+", email: "teste@antonini.co", password: "123456")
+
+puts '-----------------------------------------------------------------'
+puts "CREATED: #{User.count} test user"
+puts '-----------------------------------------------------------------'
+
 puts "creating users"
 10.times do 
     # puts 'Opening photo for user'
