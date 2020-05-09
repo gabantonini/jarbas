@@ -8,16 +8,19 @@
 			<% end %>
 			<hr>
 			<% @services.each do |service| %>
-			<h2><%= service.name %> by <%= service.user.first_name %></h2>
+			<%= link_to service do %>
+				<h2><%= service.name %> by <%= service.user.first_name %></h2>
+			<% end %>
 			<% if service.photo.attached? %>
 				<%= cl_image_tag service.photo.key, height: 300, width: 500, crop: :fill %>
 			<% else %>
 				<%= image_tag 'service_default.png' %>
 			<% end %>
 			<p><%= service.description %></p>
-			<p><%= service.price %></p>
-			<p><%= service.time_to_answer %></p>
-			<p><%= service.disponibility %></p>
+			<p><%= service.price %> R$</p>
+			<p>Prazo para atender: <%= service.time_to_answer %> dias</p>
+			<p>Disponibilidade: <%= service.disponibility %></p>
+			<p><%= service.rating %> <i class="far fa-star"></i> </p>
 			<%= link_to  "Book this service", new_service_booking_path(service), class: "btn btn-primary" %>
 			<hr>
 			<% end %>

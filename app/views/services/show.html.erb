@@ -11,40 +11,48 @@
 			<% end %>
 
 			<p><%= @service.description %></p>
-			<p><%= @service.price %></p>
-			<p><%= @service.time_to_answer %></p>
-			<p><%= @service.disponibility %></p>
+			<p><%= @service.price %> R$</p>
+			<p>Prazo para atender: <%= @service.time_to_answer %></p>
+			<p>Disponibilidade: <%= @service.disponibility %></p>
+			<p><%= @service.rating %> <i class="far fa-star"></i> </p>
+		</div>
+		<div class="col-8">
+			<%= link_to "Book this service", new_service_booking_path(@service), class: "btn btn-primary btn-block"  %>
 		</div>
 	</div>
 
 	<!-- Show reviews -->
-	<div class="row justify-content-center">
+	<div class="row justify-content-center my-4">
 		<div class="col-sm-8">
-			<h2>Confira o que nossos usuários falarm desse serviço:</h2>
-			<% @service.reviews.each do |review| %>
-				<div class="card my-2">
-					<div class="d-flex justify-content-between p-1">
-						<h3><%= review.user.first_name.capitalize %></h3>
-						<div>
-							
-							<% if review.user == current_user %>
-								<%= link_to edit_review_path(review) do  %>
-									<i class="fas fa-edit"></i>
+			<% if @service.reviews.empty? %>
+				<h2>Esse serviço ainda não possui nenhuma avaliação</h2>
+			<% else %>
+				<h2>Confira o que nossos usuários falaram desse serviço:</h2>
+				<% @service.reviews.each do |review| %>
+					<div class="card my-2">
+						<div class="d-flex justify-content-between p-1">
+							<h3><%= review.user.first_name.capitalize %></h3>
+							<div>
+								
+								<% if review.user == current_user %>
+									<%= link_to edit_review_path(review) do  %>
+										<i class="fas fa-edit"></i>
+									<% end %>
+									<%= link_to review_path(review), method: :delete, data: { confirm: "Are you sure you want to delete your review?"} do  %>
+										<i class="fas fa-trash-alt"></i>
+									<% end %>
+									- 
 								<% end %>
-								<%= link_to review_path(review), method: :delete, data: { confirm: "Are you sure you want to delete your review?"} do  %>
-									<i class="fas fa-trash-alt"></i>
-								<% end %>
-								- 
-							<% end %>
 
 
-							<% review.rating.times do %>
-								<i class="far fa-star"></i>
-							<% end %>
-						</div>	
+								<% review.rating.times do %>
+									<i class="far fa-star"></i>
+								<% end %>
+							</div>	
+						</div>
+						<p class="p-1"><%= review.content %></p>	
 					</div>
-					<p class="p-1"><%= review.content %></p>	
-				</div>
+				<% end %>
 			<% end %>
 		</div>
 	</div>	
