@@ -1,6 +1,6 @@
 <div class="container d-flex justify-content-between">
-    <div class="my_bookings w-50 p-1">
-        <h1>Services you've booked</h1>
+    <div class="my_bookings w-50 p-4">
+        <h2 class="text-center">Services you've booked</h2>
         <% if @my_bookings.empty?  %>
         <div class="card">
 
@@ -8,34 +8,42 @@
         </div>
         <% else  %>
         <% @my_bookings.each do |booking| %>
-        <div class="card">
-        <%= link_to booking.service.name, booking.service  %>
+        <div class="card m-2 text-center">
+            <%= link_to booking.service.name, booking.service, class: "card-header text-decoration-none"  %>
+            <div class="card-body">
 
-            <p> Service description: <%= booking.service.description %></p>
-            <p> Service Provider: <%= booking.service.user.first_name %></p>
-            <p> Date: <%= booking.date %></p>
-            <p> Status: <%= booking.status %></p>
-            <% if booking.add_review? %>
-            <%= link_to new_booking_review_path(booking) do %>
+                <p class="card-title"> <strong>Service description:</strong> <%= booking.service.description %></p>
+                <p class="card-text"> <strong>Service Provider:</strong> <%= booking.service.user.first_name %></p>
+                <p class="card-text"> <strong>Date: </strong><%= booking.date %></p>
+                <p class="card-text"><strong> Status:</strong> <%= booking.status %></p>
+                <% if booking.add_review? %>
+                <%= link_to new_booking_review_path(booking), class: "text-decoration-none" do %>
                 Write a review <i class="fas fa-edit"></i>
-            <% end %>
-        <% elsif !booking.review.nil? %>
-            <div class="d-flex justify-content-between">
-                <%= link_to "Your review:", booking.review  %> 
-                <div>
-                    <% booking.review.rating.times do %>
-                        <i class="far fa-star"></i>
-                    <% end %>
-                </div>   
-            </div>
+                <% end %>
+                <% elsif !booking.review.nil? %>
+                <div class="d-flex justify-content-around">
+                    <%= link_to "Your review:", booking.review, class: "text-decoration-none"  %>
+                    <div>
+                        <%  booking.review.rating.times do %>
+                        <i class="fas fa-star" style="opacity: .5"></i>
+                        <% end %>
+                        <% (5-booking.review.rating).times do %>
+                        <i class="far fa-star" style="opacity: .5"></i>
+                        <% end %>
+                    </div>
+                </div>
 
-        <% end %>
+                <% end %>
+            </div>
+            <div class="card-footer text-muted">
+                <%= link_to  "Edit", edit_booking_path(booking), class: "btn btn-sm btn-outline-dark w-50" %>
+            </div>
         </div>
         <% end %>
         <% end %>
     </div>
-    <div class="my_services_booked w-50 p-1">
-        <h1>Services booked from you</h1>
+    <div class="my_services_booked w-50 p-4">
+        <h2 class="text-center">Services booked from you</h2>
         <% if @my_services_booked.empty?  %>
         <div class="card">
 
@@ -43,35 +51,40 @@
         </div>
         <% else  %>
         <% @my_services_booked.each do |booking| %>
-        <div class="card">
+        <div class="card m-2 text-center">
+            <%= link_to booking.service.name, booking.service, class: "card-header text-decoration-none"  %>
+            <div class="card-body">
 
-            <p> Service description: <%= booking.service.description %></p>
-            <p> Service requester: <%= booking.user.first_name %></p>
-            <p> Date: <%= booking.date %></p>
-            <p> Status: <%= booking.status %></p>
-            <div class="buttons d-flex justify-content-around"> 
-            <% if booking.pending_confirmation?  %>
+                <p class="card-title"> <strong>Service description:</strong> <%= booking.service.description %></p>
+                <p class="card-text"> <strong>Service requester: </strong><%= booking.user.first_name %></p>
+                <p class="card-text"> <strong>Date: </strong><%= booking.date %></p>
+                <p class="card-text"> <strong>Status: </strong><%= booking.status %></p>
+            </div>
+            <div class="card-footer text-muted">
+                <div class="buttons d-flex justify-content-around">
+                    <% if booking.pending_confirmation?  %>
 
-            <%= form_for booking do |fa| %>
-            <%= fa.hidden_field :status, value: "Confirmado" %>
-            <%= fa.submit "Confirmar", class: "btn btn-sm btn-outline-success" %>
-            <% end %>
+                    <%= form_for booking do |fa| %>
+                    <%= fa.hidden_field :status, value: "Confirmado" %>
+                    <%= fa.submit "Confirmar", class: "btn btn-sm btn-outline-success" %>
+                    <% end %>
 
-            <%= form_for booking do |fa| %>
-            <%= fa.hidden_field :status, value: "Declinado" %>
-            <%= fa.submit "Rejeitar", class: "btn btn-sm btn-outline-danger" %>
-            <% end %>
+                    <%= form_for booking do |fa| %>
+                    <%= fa.hidden_field :status, value: "Declinado" %>
+                    <%= fa.submit "Rejeitar", class: "btn btn-sm btn-outline-danger" %>
+                    <% end %>
 
-            <% end %>
+                    <% end %>
 
-            <% if booking.confirmed?  %>
-            <%= form_for booking do |fa| %>
-            <%= fa.hidden_field :status, value: "Cancelado" %>
-            <%= fa.submit "Cancelar", class: "btn btn-sm btn-outline-dark" %>
-            <% end %>
+                    <% if booking.confirmed?  %>
+                    <%= form_for booking, data: {confirm: "Are you sure ?"} do |fa| %>
+                    <%= fa.hidden_field :status, value: "Cancelado" %>
+                    <%= fa.submit "Cancelar", class: "btn btn-sm btn-outline-dark" %>
+                    <% end %>
 
-            <% end %>
+                    <% end %>
 
+                </div>
             </div>
 
         </div>
