@@ -1,7 +1,11 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <%= link_to root_path, class: "navbar-brand" do %>
     <%= image_tag "logo_buttler.png" %>
-    <% end %>
+  <% end %>
+  <% if user_signed_in? %>
+    <%= "#{current_user.first_name.capitalize} " "#{current_user.last_name.capitalize}" %>
+  <% end %>
+  
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -15,7 +19,12 @@
           <%= link_to "Home", root_path, class: "nav-link" %>
         </li>
         <li class="nav-item dropdown">
-          <%= image_tag "user_anonymous.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% if current_user.photo.attached? %>
+            <%= cl_image_tag current_user.photo.id, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% else %>
+            <%= image_tag "user_anonymous.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% end %>
+          
           <div class="dropdown-menu dropdown-menu-right jarbas" aria-labelledby="navbarDropdown">
             <%= link_to "My bookings", bookings_path, class: "dropdown-item" %>
             <%= link_to "My services", "#", class: "dropdown-item" %>
