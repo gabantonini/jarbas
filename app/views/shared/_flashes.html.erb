@@ -29,8 +29,9 @@
     <%= link_to bookings_path do  %>
       <div class="alert alert-warning w-100 my-4" role="alert">
         <% booking_count = Booking.pending_confirmations(current_user) %>
-        You have <%= booking_count %> booking<%= booking_count > 1 ? "s" : "" %> pending confirmation. Click to leave confirm or decline.
+        You have <%= booking_count %> booking<%= booking_count > 1 ? "s" : "" %> pending confirmation. Click here to confirm or decline.
       </div>
     <% end %>
   <% end %>
+
 <% end %>
