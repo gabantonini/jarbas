@@ -7,7 +7,7 @@ class Service < ApplicationRecord
   validates :name, length: { minimum: 2 }
   validates :description, length: { maximum: 500 }
   validates :price, numericality: true
-  validates :time_to_answer, numericality: { only_integer: true }
+  validates :time_to_answer, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :disponibility, presence: true
   validates :user, presence: true
   belongs_to :service_category
