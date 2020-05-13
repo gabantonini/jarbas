@@ -2,8 +2,8 @@ class Booking < ApplicationRecord
   belongs_to :service
   belongs_to :user
   has_one :review, dependent: :destroy
-
-
+  validate :date_need_to_be_later_than_time_to_answer
+  
   def pending_confirmation?
     self.status == "Aguardando confirmação"
   end
@@ -31,6 +31,14 @@ class Booking < ApplicationRecord
 
   def self.pending_confirmations(user)
     my_confirmations = Booking.joins(:service).where('services.user_id = ? AND status = ?', user.id, "Aguardando confirmação").count
+  end
+
+  private 
+
+  def date_need_to_be_later_than_time_to_answer
+    if date < Date.today + self.service.time_to_answer
+      errors.add(:date, "O usuário solicitou ser avisado com #{self.service.time_to_answer} dia#{"s" if self.service.time_to_answer > 1} de antecedência")
+    end
   end
 
 end
