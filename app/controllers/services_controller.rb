@@ -3,15 +3,15 @@ class ServicesController < ApplicationController
 
   def index
     @services = Service.all
-    @search = params[:search]
-    if @search.present?
-      @query = @search[:query]
-      @services = Service.where("name @@ ?", @query)
+    @search_param = params[:search]
+    if @search_param.present?
+      @query = @search_param[:query]
+      @services = Service.where("name ILIKE ?", "%#{@query}%")
     end
   end
 
   def show
-    @services = Service.where("name @@ ?", @query)
+    @services = Service.where("name ILIKE ?", "%#{params[:query]}%")
     @next_service = next_service(@service, @services)
     @previous_service = previous_service(@service, @services)
   end
@@ -49,6 +49,20 @@ class ServicesController < ApplicationController
   end
 
   def next_service(service, services)
-    
+    if service == services.last
+      return false
+    else
+      service_index = services.find_index(service)
+      return services[service_index + 1]
+    end
+  end
+
+  def previous_service(service, services)
+    if service == services.first
+      return false
+    else
+      service_index = services.find_index(service)
+      return services[service_index - 1]
+    end
   end
 end
