@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <%= link_to root_path, class: "navbar-brand" do %>
-    <%= image_tag "logo_buttler.png" %>
+    <%= image_tag "logo_buttler.png" %> Home
   <% end %>
   <% if user_signed_in? %>
     <%= "#{current_user.first_name.capitalize} " "#{current_user.last_name.capitalize}" %>
@@ -15,12 +15,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
-        <li class="nav-item active">
-          <%= link_to "Home", root_path, class: "nav-link" %>
+
+        <li class="nav-item active" style="width: 400px">
+          <%= render './shared/search' %>
         </li>
         <li class="nav-item dropdown">
           <% if current_user.photo.attached? %>
-            <%= cl_image_tag current_user.photo.id, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <% else %>
             <%= image_tag "user_anonymous.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
           <% end %>
@@ -29,6 +30,7 @@
             <%= link_to "My bookings", bookings_path, class: "dropdown-item" %>
             <%= link_to "My services", "#", class: "dropdown-item" %>
             <%= link_to "Create a service", new_service_path, class: "dropdown-item" %>
+            <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item"  %>
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         </li>
