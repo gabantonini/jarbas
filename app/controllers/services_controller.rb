@@ -6,11 +6,14 @@ class ServicesController < ApplicationController
     @search = params[:search]
     if @search.present?
       @query = @search[:query]
-      @services = Service.where("name ILIKE ?", "%#{@query}%")
+      @services = Service.where("name @@ ?", @query)
     end
   end
 
   def show
+    @services = Service.where("name @@ ?", @query)
+    @next_service = next_service(@service, @services)
+    @previous_service = previous_service(@service, @services)
   end
 
   def new
@@ -43,5 +46,9 @@ class ServicesController < ApplicationController
 
   def service_params
   	params.require(:service).permit(:name, :description, :price, :time_to_answer, :disponibility, :service_category_id, :photo)
+  end
+
+  def next_service(service, services)
+    
   end
 end
