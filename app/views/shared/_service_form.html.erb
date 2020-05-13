@@ -1,31 +1,40 @@
 <%= simple_form_for(service) do |f| %>
 
     <div class="form-inputs">
-        <%= f.association :service_category %>
+        <%= f.association :service_category, 
+        required: true,
+        label: "Escolhe a categoria do serviço",
+        autofocus: true %>
         <%= f.input :name,
         required: true,
         autofocus: true,
+        label: "Nome do serviço:",
         input_html: { autocomplete: "name", :minlength => 2}%>
         <%= f.input :description,
         required: true,
         autofocus: true,
+        label: "Descreve seu serviço:",
         input_html: { autocomplete: "description", :maxlength => 500}%>
         <%= f.input :price,
         required: true,
+        label: "Qual o valor do seu serviço (em R$)?",
         autofocus: true,
         input_html: { autocomplete: "price" }, placeholder: 'only numbers'%>
         <%= f.input :time_to_answer,
         required: true,
         autofocus: true,
+        input_html: { min: 0 },
+        label: "Com quantos dias de antecedência você precisa ser avisado?",
         input_html: { autocomplete: "time_to_answer" }, placeholder: 'only numbers'%>
         <%= f.input :disponibility,
         required: true,
         autofocus: true,
+        label: "Descreve sua disponibilidade (por exemplo: todas as quinta-feira):",
         input_html: { autocomplete: "disponibility" }%>
         <%=f.input :photo, as: :file%>
     </div>
 
     <div class="form-actions">
-        <%= f.button :submit %>
+        <%= f.button :submit, class: "btn btn-primary"%>
     </div>
 <% end %>

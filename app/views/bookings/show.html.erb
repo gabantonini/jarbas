@@ -1,6 +1,6 @@
 <div class="container">
 <div class="card">
-<h2>Service name: <%= @booking.service.name %></h2>
+<h2><%= @booking.service.name %></h2>
 <p>Service decription: <%= @booking.service.description %></p>
 <p>Service provider <%= @booking.service.user.first_name %> <%= @booking.service.user.last_name %></p>
 <p>Price: R$<%= @booking.service.price %></p>

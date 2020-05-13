@@ -20,9 +20,17 @@ class Booking < ApplicationRecord
   	(["Realizado", "Cancelado"].include?(status)) && (self.review.nil?)
   end
   
-  def self.pending_reviews?(user)
+  def self.pending_reviews(user)
      my_bookings = Booking.where('user_id = ? AND status = ? AND date > ?', user.id, "Realizado", Date.today - 7)
-     my_bookings.count.zero? ? false : my_bookings.count
+     my_bookings_without_review = []
+     my_bookings.each do |booking|
+      my_bookings_without_review << booking if booking.review.nil? 
+     end
+     my_bookings_without_review.count
+  end
+
+  def self.pending_confirmations(user)
+    my_confirmations = Booking.joins(:service).where('services.user_id = ? AND status = ?', user.id, "Aguardando confirmação").count
   end
 
 end
