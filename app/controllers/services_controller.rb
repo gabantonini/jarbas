@@ -8,7 +8,7 @@ class ServicesController < ApplicationController
     else
       @query = params[:query]
     end
-    @services = Service.where("name ILIKE ?", "%#{@query}%")
+    @services = Service.where("name ILIKE ?", "%#{@query}%").order("avg_rating DESC")
   end
 
   def show

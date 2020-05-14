@@ -24,7 +24,7 @@
 			<p><%= service.price %> R$</p>
 			<p>Prazo para atender: <%= service.time_to_answer %> dias</p>
 			<p>Disponibilidade: <%= service.disponibility %></p>
-			<p><%= service.rating %> <i class="far fa-star"></i> </p>
+			<p><%=  service.avg_rating.zero? ? "No rating yet": service.avg_rating %> <i class="far fa-star"></i> </p>
 			<%= link_to  "Book this service", new_service_booking_path(service), class: "btn btn-primary" %>
 			<hr>
 			<% end %>
