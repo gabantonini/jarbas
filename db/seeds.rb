@@ -70,7 +70,7 @@ puts 'CREATED: Users'
 puts '-----------------------------------------------------------------'
 puts 'Creating Service Categories'
 puts 'Please WAIT as the photos are been uploaded. It is working! ;)'
-puts 'your internet sucks though...'
+puts '(your internet sucks though...)'
 
 # Definir depois as categorias de serviços que queremos
 categories = ["Assistência Técnica", "Aulas", "Autos", "Consultoria",
