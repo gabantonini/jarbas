@@ -2,7 +2,7 @@ class Booking < ApplicationRecord
   belongs_to :service
   belongs_to :user
   has_one :review, dependent: :destroy
-  validate :date_need_to_be_later_than_time_to_answer
+  validate :date_need_to_be_later_than_time_to_answer, on: :create
   
   def pending_confirmation?
     self.status == "Aguardando confirmação"
