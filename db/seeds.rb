@@ -51,7 +51,7 @@ puts '-----------------------------------------------------------------'
 puts 'CREATED: Users'
 puts '-----------------------------------------------------------------'
 puts 'Creating Service Categories'
-puts 'Please wait as the photos are been uploaded. It is working! ;)'
+puts 'Please WAIT as the photos are been uploaded. It is working! ;)'
 
 # Definir depois as categorias de serviços que queremos
 categories = ["Assistência Técnica", "Aulas", "Autos", "Consultoria",
@@ -84,13 +84,13 @@ puts 'Creating services for each user'
         # puts 'Opening photo for service'
         # file = URI.open('https://giantbomb1.cbsistatic.com/uploads/original/9/99864/2419866-nes_console_set.png')
         service = Service.new
-        service.name = "#{categories.sample} #{Faker::Verb.ing_form}"
+        service.service_category = @categories.sample
+        service.name = "#{service.service_category} #{Faker::Verb.ing_form}"
         service.description = Faker::ChuckNorris.fact
         service.price = rand(1..400)
         service.time_to_answer = rand(1..7)
         service.disponibility = Faker::Date.between(from: Date.today, to: 8.days.from_now)
         service.user = user
-        service.service_category = @categories.sample
         # puts 'Adding photo to service'
         # service.photo.attach(io: file, filename: 'service.png', content_type: 'image/png')
         service.save ? (puts 'service saved') : (puts "invalid service: #{service.errors.full_messages}")

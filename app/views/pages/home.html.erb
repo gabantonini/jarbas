@@ -16,6 +16,9 @@
   					<div class="card-body">
     					<h5 class="card-title"><%= category.name %></h5>
     					<p class="card-text"><%= category.description %></p>
+    					<%= link_to "Contrate agora!", {controller: "services", action: "show"},
+    					class: "btn btn-primary" %>
+    					service_path(category.services.first, category.services) 
     					<a href="/services" class="btn btn-primary">Contrate agora!</a>
   					</div>
 				</div>
