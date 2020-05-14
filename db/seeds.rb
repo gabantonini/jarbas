@@ -51,16 +51,27 @@ puts '-----------------------------------------------------------------'
 puts 'CREATED: Users'
 puts '-----------------------------------------------------------------'
 puts 'Creating Service Categories'
+puts 'Please wait as the photos are been uploaded. It is working! ;)'
 
 # Definir depois as categorias de serviços que queremos
 categories = ["Assistência Técnica", "Aulas", "Autos", "Consultoria",
     "Design e Tecnologia", "Eventos", "Moda e Beleza", "Reformas", "Saúde", "Serviços Domésticos"]
-categories.each do |category|
-    ServiceCategory.create(name: category)
+cat_photos = ["1_assistencia_tecnica.png", "2_aulas.png", "3_autos.png", "4_consultoria.png",
+    "5_design_e_tecnologia.png", "6_eventos.png", "7_moda_e_beleza.png", "8_reformas.png",
+    "9_saude.png", "10_servicos_domesticos.png"]
+cat_description = "Milhares de profissionais avaliados por clientes, permitindo você negociar apenas com os melhores."
+
+categories.each_with_index do |category, index|
+    new_category = ServiceCategory.new(name: category)
+    path = File.join(Rails.root, 'app/assets/images/service_categories', "#{cat_photos[index]}")
+    file = URI.open(path)
+    new_category.photo.attach(io: file, filename: 'category.png', content_type: 'image/png')
+    new_category.description = cat_description
+    new_category.save!
 end
 
 puts '-----------------------------------------------------------------'
-puts 'CREATED: Service categories'
+puts 'CREATED: Service categories with photos'
 puts '-----------------------------------------------------------------'
 puts 'Creating services for each user'
 
