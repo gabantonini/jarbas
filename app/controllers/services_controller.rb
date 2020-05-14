@@ -2,12 +2,13 @@ class ServicesController < ApplicationController
   before_action :find_service, only: [:show, :edit, :update, :destroy]
 
   def index
-    @services = Service.all
-    @search_param = params[:search]
-    if @search_param.present?
+    if params[:search].present?
+      @search_param = params[:search]
       @query = @search_param[:query]
-      @services = Service.where("name ILIKE ?", "%#{@query}%")
+    else
+      @query = params[:query]
     end
+    @services = Service.where("name ILIKE ?", "%#{@query}%")
   end
 
   def show

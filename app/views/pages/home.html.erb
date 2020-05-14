@@ -1,17 +1,27 @@
 <div class="container-homepage">
 	<div class="home-content">
 		<h1>JARBAS <%= image_tag "buttler.png", class: "title-img" %></h1>
-			
 		<p>Encontre serviços para te ajudar em casa, específicos para seu condomínio</p>
-		
 		<%= render 'shared/search' %>
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="d-flex col-8">
-					
+	</div>	
+</div>
+<div class="container">
+	<div class="row justify-content-center">
+		<% @categories.each_with_index do |category, index| %>
+			<div class="col-3 mb-3 mr-3">
+				<div class="card" style="width: 18rem;">
+					<div class="card-img-top">
+						<%= cl_image_tag category.photo.key, class: "card-img-top" %>
+					</div>
+  					<div class="card-body">
+    					<h5 class="card-title"><%= category.name %></h5>
+    					<p class="card-text"><%= category.description %></p>
+    					<%= link_to "Contrate agora!", services_path(query: "#{category.name}"),
+    					class: "btn btn-primary" %>
+  					</div>
 				</div>
 			</div>
-		</div>
-
+		<% end %>	
 	</div>
 </div>
+		

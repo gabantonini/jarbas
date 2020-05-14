@@ -51,16 +51,27 @@ puts '-----------------------------------------------------------------'
 puts 'CREATED: Users'
 puts '-----------------------------------------------------------------'
 puts 'Creating Service Categories'
+puts 'Please WAIT as the photos are been uploaded. It is working! ;)'
 
 # Definir depois as categorias de serviços que queremos
 categories = ["Assistência Técnica", "Aulas", "Autos", "Consultoria",
     "Design e Tecnologia", "Eventos", "Moda e Beleza", "Reformas", "Saúde", "Serviços Domésticos"]
-categories.each do |category|
-    ServiceCategory.create(name: category)
+cat_photos = ["1_assistencia_tecnica.png", "2_aulas.png", "3_autos.png", "4_consultoria.png",
+    "5_design_e_tecnologia.png", "6_eventos.png", "7_moda_e_beleza.png", "8_reformas.png",
+    "9_saude.png", "10_servicos_domesticos.png"]
+cat_description = "Milhares de profissionais avaliados por clientes, permitindo você negociar apenas com os melhores."
+
+categories.each_with_index do |category, index|
+    new_category = ServiceCategory.new(name: category)
+    path = File.join(Rails.root, 'app/assets/images/service_categories', "#{cat_photos[index]}")
+    file = URI.open(path)
+    new_category.photo.attach(io: file, filename: 'category.png', content_type: 'image/png')
+    new_category.description = cat_description
+    new_category.save!
 end
 
 puts '-----------------------------------------------------------------'
-puts 'CREATED: Service categories'
+puts 'CREATED: Service categories with photos'
 puts '-----------------------------------------------------------------'
 puts 'Creating services for each user'
 
@@ -73,13 +84,13 @@ puts 'Creating services for each user'
         # puts 'Opening photo for service'
         # file = URI.open('https://giantbomb1.cbsistatic.com/uploads/original/9/99864/2419866-nes_console_set.png')
         service = Service.new
-        service.name = "#{categories.sample} #{Faker::Verb.ing_form}"
+        service.service_category = @categories.sample
+        service.name = "#{service.service_category.name} #{Faker::Verb.ing_form}"
         service.description = Faker::ChuckNorris.fact
         service.price = rand(1..400)
         service.time_to_answer = rand(1..7)
         service.disponibility = Faker::Date.between(from: Date.today, to: 8.days.from_now)
         service.user = user
-        service.service_category = @categories.sample
         # puts 'Adding photo to service'
         # service.photo.attach(io: file, filename: 'service.png', content_type: 'image/png')
         service.save ? (puts 'service saved') : (puts "invalid service: #{service.errors.full_messages}")
