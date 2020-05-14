@@ -11,6 +11,9 @@ class ServicesController < ApplicationController
   end
 
   def show
+    @services = Service.where("name ILIKE ?", "%#{params[:query]}%")
+    @next_service = next_service(@service, @services)
+    @previous_service = previous_service(@service, @services)
   end
 
   def new
@@ -43,5 +46,23 @@ class ServicesController < ApplicationController
 
   def service_params
   	params.require(:service).permit(:name, :description, :price, :time_to_answer, :disponibility, :service_category_id, :photo)
+  end
+
+  def next_service(service, services)
+    if service == services.last
+      return false
+    else
+      service_index = services.find_index(service)
+      return services[service_index + 1]
+    end
+  end
+
+  def previous_service(service, services)
+    if service == services.first
+      return false
+    else
+      service_index = services.find_index(service)
+      return services[service_index - 1]
+    end
   end
 end
