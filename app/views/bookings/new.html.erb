@@ -1,6 +1,6 @@
-<%= simple_form_for  [@service, @booking] do |f| %>
-  <%= f.input :date %>
-  <%= f.submit "Book", class: "btn btn-primary" %>
+<%= simple_form_for [@service, @booking] do |f| %>
+	<%= f.input :date, default: (Date.today + @service.time_to_answer) %>
+	<%= f.submit class: "btn btn-primary"%>
 <% end %>
 
 

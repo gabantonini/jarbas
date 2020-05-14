@@ -13,7 +13,7 @@
 			<% end %>
 			<hr>
 			<% @services.each do |service| %>
-			<%= link_to service do %>
+			<%= link_to service_path(service, query: @query) do %>
 				<h2><%= service.name %> by <%= service.user.first_name %></h2>
 			<% end %>
 			<% if service.photo.attached? %>
