@@ -85,7 +85,7 @@ puts 'Creating services for each user'
         # file = URI.open('https://giantbomb1.cbsistatic.com/uploads/original/9/99864/2419866-nes_console_set.png')
         service = Service.new
         service.service_category = @categories.sample
-        service.name = "#{service.service_category} #{Faker::Verb.ing_form}"
+        service.name = "#{service.service_category.name} #{Faker::Verb.ing_form}"
         service.description = Faker::ChuckNorris.fact
         service.price = rand(1..400)
         service.time_to_answer = rand(1..7)

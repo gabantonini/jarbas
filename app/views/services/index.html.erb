@@ -1,14 +1,13 @@
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-sm-8">
-			<% if @search.present? %>
-			    <% if @search.empty? %>
+			<% if @query.present? %>
+			    <% if @services.empty? %>
 			    	<h1>Desculpe, não existe serviço para "<%= @query %>"</h1>
 			    <% else %>
 			    	<h1>Serviços contendo: <strong><%= @query %></strong></h1>
 			    <% end %>
-			    	
-			  <% else %>
+			<% else %>
 			    <h1><strong>Todos os serviços que temos</strong></h1>
 			<% end %>
 			<hr>
