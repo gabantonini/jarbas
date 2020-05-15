@@ -16,7 +16,7 @@
 				<h2><%= service.name %> by <%= service.user.first_name %></h2>
 			<% end %>
 			<% if service.photo.attached? %>
-				<%= cl_image_tag service.photo.key, height: 300, width: 500, crop: :fill %>
+				<%= cl_image_tag service.photo.key, class: "img-thumbnail", crop: :fill %>
 			<% else %>
 				<%= image_tag('service_default.png', class: "img-thumbnail") %>
 			<% end %>
