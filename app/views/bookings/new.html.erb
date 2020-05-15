@@ -1,8 +1,11 @@
 <%= simple_form_for [@service, @booking] do |f| %>
-	<%= f.input :date, default: (Date.today + @service.time_to_answer) %>
+	<%= f.input :date,
+		 as: :string,
+		 input_html: {
+		 	class: "datepicker", 
+		 	data: { default: "#{Date.today + @service.time_to_answer + 1}" }
+		 } %>
 	<%= f.submit class: "btn btn-primary"%>
 <% end %>
-
-
 
 
