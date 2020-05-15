@@ -3,9 +3,7 @@
 		 as: :string,
 		 input_html: {
 		 	class: "datepicker", 
-		 	data: { default: "#{Date.today + @service.time_to_answer + 1}", blocked: "#{@service.user.blocked_dates}" }
+		 	data: { default: "#{Date.today + @service.time_to_answer + 1}", blocked: "#{(@service.user.blocked_dates + @service.blocked_dates).join(',')}" }
 		 } %>
 	<%= f.submit class: "btn btn-primary"%>
 <% end %>
-
-
