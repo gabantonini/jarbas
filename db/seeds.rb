@@ -9,22 +9,39 @@
 require 'faker'
 require 'open-uri'
 
-puts 'Cleaning all users, service categories, services, bookings and reviews'
+puts 'Cleaning all USERS, SERVICE CATEGORIES, SERVICES, BOOKINGS, REVIEWS and CONDOMINIOS'
 Booking.destroy_all
 User.destroy_all
 ServiceCategory.destroy_all
+Condominio.destroy_all
 
 puts '-----------------------------------------------------------------'
-puts 'CLEANED: User, service categories, services, bookings and reviews'
+puts 'CLEANED: User, service categories, services, bookings, reviews and condominios'
 puts '-----------------------------------------------------------------'
 puts "Booking: #{Booking.count} Users: #{User.count} Reviews: #{Review.count} 
-Services: #{Service.count} Service Categories: #{ServiceCategory.count}"
+Services: #{Service.count} Service Categories: #{ServiceCategory.count}
+Condominio: #{Condominio.count}"
+puts '-----------------------------------------------------------------'
+
+puts 'Creating condominios'
+
+5.times do
+    condominio = Condominio.new
+    condominio.name = Faker::FunnyName.name
+    condominio.save!
+end
+
+puts '-----------------------------------------------------------------'
+puts "CREATED: #{Condominio.count} condominios"
 puts '-----------------------------------------------------------------'
 
 puts 'Creating test user'
 
-User.create(first_name: "Gabriel", last_name: "Jarbas", address: "Rua Mourato Coelho 1404 Sao Paulo", zip_code: "05417-002
+test_user = User.new(first_name: "Gabriel", last_name: "Jarbas", address: "Rua Mourato Coelho 1404 Sao Paulo", zip_code: "05417-002
 ", email: "teste@antonini.co", password: "123456")
+@condominios = Condominio.all
+test_user.condominio = @condominios.sample
+test_user.save!
 
 puts '-----------------------------------------------------------------'
 puts "CREATED: #{User.count} test user"
@@ -43,7 +60,8 @@ puts "creating users"
     user.email = Faker::Internet.email
     # puts 'Adding photo to user'
     # user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
-    user.password = "123456"    
+    user.password = "123456"
+    user.condominio = @condominios.sample
     user.save ? (puts "user saved") : (puts "invalid user: #{user.errors.full_messages}")
 end
 
@@ -52,6 +70,7 @@ puts 'CREATED: Users'
 puts '-----------------------------------------------------------------'
 puts 'Creating Service Categories'
 puts 'Please WAIT as the photos are been uploaded. It is working! ;)'
+puts '(your internet sucks though...)'
 
 # Definir depois as categorias de serviços que queremos
 categories = ["Assistência Técnica", "Aulas", "Autos", "Consultoria",
@@ -141,3 +160,4 @@ puts "#{Service.count } Services have been created"
 puts "#{Booking.count } Bookings have been created"
 puts "#{Review.count} reviews created"
 puts "#{ServiceCategory.count} Service Categories have been created"
+puts "#{Condominio.count} Condominios have been created"

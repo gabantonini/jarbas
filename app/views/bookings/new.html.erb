@@ -1,7 +1,15 @@
-<%= simple_form_for [@service, @booking] do |f| %>
-	<%= f.input :date, default: (Date.today + @service.time_to_answer) %>
-	<%= f.submit class: "btn btn-primary"%>
-<% end %>
+<div class="container">
+	<div class="row justify-content-center my-2">
+		<div class="col-8">
+			<%= simple_form_for [@service, @booking] do |f| %>
+				<%= f.input :date, default: (Date.today + @service.time_to_answer), label: "Escolhe um dia para a realização do serviço" %>
+				<%= f.input :comment, label: "Explique melhor para o #{@service.user.first_name} o que precisa" %>
+				<%= f.submit class: "btn btn-primary"%>
+			<% end %>
+		</div>
+	</div>
+</div>
+
 
 
 
