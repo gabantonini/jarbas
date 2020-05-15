@@ -13,4 +13,5 @@ class User < ApplicationRecord
          has_many :service_categories, through: :services
          has_many :bookings, dependent: :destroy
          has_many :reviews, through: :bookings, dependent: :destroy
+         belongs_to :condominio
 end
