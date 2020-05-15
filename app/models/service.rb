@@ -3,6 +3,7 @@ class Service < ApplicationRecord
   has_one_attached :photo
   has_many :bookings
   has_many :reviews, through: :bookings
+  after_initialize :default_values
 
   validates :name, length: { minimum: 2 }
   validates :description, length: { maximum: 500 }
@@ -12,6 +13,10 @@ class Service < ApplicationRecord
   validates :user, presence: true
   belongs_to :service_category
   validates :service_category, presence: true
+
+  def default_values
+    self.avg_rating  ||= 0.0
+  end
 
   def rating
     number_of_ratings = self.reviews.count
