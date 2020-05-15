@@ -38,7 +38,7 @@ puts "creating users"
     user = User.new()
     user.first_name = Faker::Name.first_name  
     user.last_name =  Faker::Name.last_name 
-    user.address = Faker::Address.street_name 
+    user.address = Faker::Address.full_address
     user.zip_code = "12345-678"
     user.email = Faker::Internet.email
     # puts 'Adding photo to user'
