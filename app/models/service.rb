@@ -14,6 +14,14 @@ class Service < ApplicationRecord
   belongs_to :service_category
   validates :service_category, presence: true
 
+
+  include PgSearch::Model
+  pg_search_scope :search_by_name_and_description,
+  against: [ :name, :description ],
+  using: {
+    tsearch: { prefix: true } # <-- now `superman batm` will return something!
+  }
+
   def default_values
     self.avg_rating  ||= 0.0
   end
