@@ -6,9 +6,9 @@
 	</div>	
 </div>
 <div class="container">
-	<div class="row justify-content-center">
-		<h1></h1>
-		<div id="map"
+	<div class="row justify-content-center my-4">
+		<h3>Olha todos os nossos <strong>Jarbas</strong> querendo te ajudar!</h3>
+		<div class= "my-2" id="map"
 		     style="width: 60%; height: 400px;"
 		     data-markers="<%= @markers.to_json %>"
 		     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
@@ -16,6 +16,9 @@
 	</div>
 </div>
 <div class="container">
+	<div class="row justify-content-center my-2">
+		<h3>Veja diretamente as categorias de serviços que te interessam</h3>
+	</div>
 	<div class="row justify-content-center">
 		<% @categories.each_with_index do |category, index| %>
 			<div class="col-3 mb-3 mr-3">

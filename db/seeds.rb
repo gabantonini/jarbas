@@ -51,7 +51,7 @@ puts '-----------------------------------------------------------------'
 user_addresses = ['Rua Doutor Luis Barreto 354 Sao Paulo', 'Rua Daniel Vieira 4508 Sao Paulo',
     'Rua Francisco Inacio Solano 48 Sao Paulo', 'Avenida Nossa Senhora do Sabara 3371 Sao Paulo',
     'Rua Sergio Cardoso 480 Sao Paulo', 'Rua Cantagalo 934 Sao Paulo',
-    'Rua Rio Negro 1033 Sao Paulo', 'Rua Gaspar Viegas 4917 Sao Paulo',
+    'Rua Galvao Bueno 412 Sao Paulo', 'Rua Gaspar Viegas 4917 Sao Paulo',
     'Rua Francisca Miquelina 89 Sao Paulo', 'Rua Wisard 370 Sao Paulo' ]
 
 puts "creating users"
