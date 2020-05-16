@@ -1,18 +1,26 @@
 class Service < ApplicationRecord
   belongs_to :user
   has_one_attached :photo
-  has_many :bookings
-  has_many :reviews, through: :bookings
+  has_many :bookings, dependent: :destroy
+  has_many :reviews, through: :bookings, dependent: :destroy
   after_initialize :default_values
 
   validates :name, length: { minimum: 2 }
-  validates :description, length: { maximum: 500 }
+  validates :description, length: { maximum: 3000 }
   validates :price, numericality: true
   validates :time_to_answer, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :disponibility, presence: true
   validates :user, presence: true
   belongs_to :service_category
   validates :service_category, presence: true
+
+
+  include PgSearch::Model
+  pg_search_scope :search_by_name_and_description,
+  against: [ :name, :description ],
+  using: {
+    tsearch: { prefix: true } # <-- now `superman batm` will return something!
+  }
 
   def default_values
     self.avg_rating  ||= 0.0

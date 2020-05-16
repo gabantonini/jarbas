@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-8">
+            <% if @my_services.empty? %>
+            <h1>Você ainda não tem nenhum serviço cadastrado :(</h1>
+            <p><%= link_to  "Criar agora", new_service_path, class: "btn btn-primary" %>
+                <% else %>
+                <h1>Meus Serviços:</h1>
+                <% @my_services.each do |service| %>
+                <hr>
+                <%= link_to service_path(service, query: @query) do %>
+                <h2><%= service.name %> by <%= service.user.first_name %></h2>
+                <% end %>
+                <% if service.photo.attached? %>
+                <%= cl_image_tag service.photo.key, class: "img-thumbnail", crop: :fill %>
+                <% else %>
+                <%= image_tag('service_default.png', class: "img-thumbnail") %>
+                <% end %>
+                <p><%= service.description %></p>
+                <p><%= service.price %> R$</p>
+                <p>Prazo para atender: <%= service.time_to_answer %> dias</p>
+                <p>Disponibilidade: <%= service.disponibility %></p>
+                <p><%=   service.avg_rating.zero? ? "No rating yet": service.avg_rating %> <i class="far fa-star"></i> </p>
+
+                <% if service.bookings.empty? %>
+                <h3>Nothings booked yet</h3>
+                <% else %>
+                <h3>Bookings on this service</h3>
+                <% service.bookings.each do |booking| %>
+                <p><%=booking.user.first_name%> <%=booking.user.last_name%> - <%=booking.date%> - <%=booking.status%> </p>
+                <% end %>
+                <% end %>
+
+                <%= link_to  "Edit this service", edit_service_path(service), class: "btn btn-sm btn-outline-primary" %>
+                <%= link_to  "Delete this service", service_path(service),method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "Are you sure?" } %>
+                <hr>
+                <% end %>
+                <% end %>
+        </div>
+    </div>
+</div>
