@@ -9,6 +9,7 @@
 					 	data: { default: "#{Date.today + @service.time_to_answer + 1}", blocked: "#{(@service.user.blocked_dates + @service.blocked_dates).join(',')}" },
 					 	label: "Escolhe a data desejada para a realização do serviço:"
 					 } %>
+				<%= f.input :comment, label: "Explique melhor para o #{@booking.service.user.first_name} o que você precisa:" %>
 				<%= f.submit class: "btn btn-primary"%>
 			<% end %>
 		</div>
