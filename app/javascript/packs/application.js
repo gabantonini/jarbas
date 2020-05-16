@@ -24,7 +24,7 @@ require("channels")
 
 // External imports
 import "bootstrap";
-import { initFlatpickr } from "../plugins/flatpickr";
+import { initFlatpickr, initFlatpickrCalendar } from "../plugins/flatpickr";
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -34,6 +34,10 @@ document.addEventListener('turbolinks:load', () => {
   // initSelect2();
   if (document.querySelector(".datepicker")) {
   	initFlatpickr();
+  }
+
+  if (document.querySelector(".datepicker-calendar")) {
+  	initFlatpickrCalendar();
   }
   	
 });

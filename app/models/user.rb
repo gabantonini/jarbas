@@ -17,15 +17,29 @@ class User < ApplicationRecord
          belongs_to :condominio
 
   def blocked_dates
-    booking_dates = Booking.joins(:service)
+    booking_dates = bookings_by_date
+
+    full_dates = booking_dates
+      .select { |date_array| date_array[1] >= 2 }
+      .map { |date_array| date_array[0].to_s }
+
+    calendar_dates = calendar_dates
+
+    blocked_dates = (full_dates + calendar_dates).uniq
+  end
+
+  def bookings_by_date
+    Booking.joins(:service)
       .where('services.user_id = ? AND bookings.date > ?', self.id, Date.today)
       .group(:date)
       .count
       .to_a
+  end
 
-    blocked_dates = booking_dates
-      .select { |date_array| date_array[1] >= 2 }
-      .map { |date_array| date_array[0].to_s }
-  end 
+  def calendar_dates
+    UserCalendar
+      .where('user_id = ? AND date >= ?', self, Date.today)
+      .map { |calendar| calendar.date.to_s }
+  end
 
 end

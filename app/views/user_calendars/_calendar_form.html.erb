@@ -1,4 +1,10 @@
 <%= simple_form_for new_calendar, remote: true do |f| %>
-	<%= f.input :date %>
+	<%= f.input :date,
+		as: :string,
+		input_html: { 
+			class: "datepicker-calendar",
+			data: { calendar: "#{current_user.calendar_dates.join(',')}" }
+			}
+		%>
 	<%= f.submit "Bloquear data", class: "btn btn-primary" %>
 <% end %>
