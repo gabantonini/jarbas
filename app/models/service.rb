@@ -27,4 +27,14 @@ class Service < ApplicationRecord
       sum_ratings.fdiv(number_of_ratings).round(1)
     end
   end
+
+  def blocked_dates
+    blocked_dates = []
+    if time_to_answer > 0
+      (0..time_to_answer).each do |i|
+        blocked_dates << (Date.today + i).to_s 
+      end
+    end
+    return blocked_dates
+  end
 end
