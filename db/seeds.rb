@@ -36,6 +36,7 @@ puts "CREATED: #{Condominio.count} condominios"
 puts '-----------------------------------------------------------------'
 
 puts 'Creating test user'
+puts 'Geocoding his address can take a few seconds... wait!'
 
 test_user = User.new(first_name: "Gabriel", last_name: "Jarbas", address: "Rua Mourato Coelho 1404 Sao Paulo", zip_code: "05417-002
 ", email: "teste@antonini.co", password: "123456")
@@ -47,22 +48,33 @@ puts '-----------------------------------------------------------------'
 puts "CREATED: #{User.count} test user"
 puts '-----------------------------------------------------------------'
 
+user_addresses = ['Rua Doutor Luis Barreto 354 Sao Paulo', 'Rua Daniel Vieira 4508 Sao Paulo',
+    'Rua Francisco Inacio Solano 48 Sao Paulo', 'Avenida Nossa Senhora do Sabara 3371 Sao Paulo',
+    'Rua Sergio Cardoso 480 Sao Paulo', 'Rua Cantagalo 934 Sao Paulo',
+    'Rua Galvao Bueno 412 Sao Paulo', 'Rua Gaspar Viegas 4917 Sao Paulo',
+    'Rua Francisca Miquelina 89 Sao Paulo', 'Rua Wisard 370 Sao Paulo' ]
+
 puts "creating users"
+puts '-----------------------------------------------------------------'
+
+i = 0
 10.times do 
     # puts 'Opening photo for user'
     # Too slow to fetch images but it is working!
     # file = URI.open('https://giantbomb1.cbsistatic.com/uploads/original/9/99864/2419866-nes_console_set.png')
     user = User.new()
     user.first_name = Faker::Name.first_name  
-    user.last_name =  Faker::Name.last_name 
-    user.address = Faker::Address.street_name 
+    user.last_name =  Faker::Name.last_name
+    puts 'Geocoding his address can take a few seconds... wait!'
+    user.address = user_addresses[i]
+    i >= user_addresses.count ? i = 0 : i += 1
     user.zip_code = "12345-678"
     user.email = Faker::Internet.email
     # puts 'Adding photo to user'
     # user.photo.attach(io: file, filename: 'user.png', content_type: 'image/png')
     user.password = "123456"
     user.condominio = @condominios.sample
-    user.save ? (puts "user saved") : (puts "invalid user: #{user.errors.full_messages}")
+    user.save ? (puts "user ID-#{user.id} SAVED") : (puts "invalid user: #{user.errors.full_messages}")
 end
 
 puts '-----------------------------------------------------------------'
@@ -71,6 +83,7 @@ puts '-----------------------------------------------------------------'
 puts 'Creating Service Categories'
 puts 'Please WAIT as the photos are been uploaded. It is working! ;)'
 puts '(your internet sucks though...)'
+puts '-----------------------------------------------------------------'
 
 # Definir depois as categorias de serviços que queremos
 categories = ["Assistência Técnica", "Aulas", "Autos", "Consultoria",
@@ -87,6 +100,7 @@ categories.each_with_index do |category, index|
     new_category.photo.attach(io: file, filename: 'category.png', content_type: 'image/png')
     new_category.description = cat_description
     new_category.save!
+    puts "Category ##{index + 1 } saved!"
 end
 
 puts '-----------------------------------------------------------------'
@@ -105,7 +119,7 @@ puts 'Creating services for each user'
         service = Service.new
         service.service_category = @categories.sample
         service.name = "#{service.service_category.name} #{Faker::Verb.ing_form}"
-        service.description = Faker::ChuckNorris.fact
+        service.description = Faker::Restaurant.description
         service.price = rand(1..400)
         service.time_to_answer = rand(1..7)
         service.disponibility = Faker::Date.between(from: Date.today, to: 8.days.from_now)
@@ -128,7 +142,7 @@ puts "Creating bookings"
         booking = Booking.new
         booking.service = @services.sample
         booking.user = user
-        booking.date = Faker::Date.between(from: Date.today, to: 8.days.from_now)
+        booking.date = Faker::Date.between(from: 10.days.from_now, to: 20.days.from_now)
 
         # Não sei quais vão ser o status ainda, depois a gente arruma os possiveis
         booking.status = ["Confirmado", "Aguardando confirmação", "Declinado"].sample
