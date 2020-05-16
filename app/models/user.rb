@@ -14,7 +14,7 @@ class User < ApplicationRecord
          has_many :bookings, dependent: :destroy
          has_many :reviews, through: :bookings, dependent: :destroy
          has_many :user_calendars
-         belongs_to :condominio
+         belongs_to :condominio, optional: true
 
   def blocked_dates
     booking_dates = bookings_by_date
