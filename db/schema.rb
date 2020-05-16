@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_14_175954) do
+
+ActiveRecord::Schema.define(version: 2020_05_14_231246) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,8 +45,15 @@ ActiveRecord::Schema.define(version: 2020_05_14_175954) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "comment"
     t.index ["service_id"], name: "index_bookings_on_service_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "condominios", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -73,6 +82,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_175954) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "service_category_id"
+    t.float "avg_rating"
     t.index ["service_category_id"], name: "index_services_on_service_category_id"
     t.index ["user_id"], name: "index_services_on_user_id"
   end
@@ -94,6 +104,8 @@ ActiveRecord::Schema.define(version: 2020_05_14_175954) do
     t.string "last_name"
     t.string "address"
     t.string "zip_code"
+    t.bigint "condominio_id"
+    t.index ["condominio_id"], name: "index_users_on_condominio_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -104,4 +116,5 @@ ActiveRecord::Schema.define(version: 2020_05_14_175954) do
   add_foreign_key "reviews", "bookings"
   add_foreign_key "services", "service_categories"
   add_foreign_key "services", "users"
+  add_foreign_key "users", "condominios"
 end
