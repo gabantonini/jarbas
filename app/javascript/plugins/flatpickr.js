@@ -8,4 +8,12 @@ const initFlatpickr = () => {
 	});
 };
 
-export { initFlatpickr } ;
+const initFlatpickrCalendar = () => {
+	flatpickr(".datepicker-calendar", {
+		altInput: true,
+		disable: document.querySelector(".datepicker-calendar").dataset.calendar.split(','),
+		mode: "multiple",
+	});
+};
+
+export { initFlatpickr, initFlatpickrCalendar } ;
