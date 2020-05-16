@@ -21,7 +21,11 @@ class BookingsController < ApplicationController
         @booking.user = current_user
         @booking.service = @service
         @booking.status = "Aguardando confirmação"
-        @booking.save ? (redirect_to booking_path(@booking)) : (render :new)
+        if @booking.save
+          (redirect_to booking_path(@booking))
+        else 
+          (render :new)
+        end
       end
     
       def edit
