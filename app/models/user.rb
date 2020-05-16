@@ -42,9 +42,4 @@ class User < ApplicationRecord
       .where('user_id = ? AND date >= ?', self, Date.today)
       .map { |calendar| calendar.date.to_s }
   end
-
-    blocked_dates = booking_dates
-      .select { |date_array| date_array[1] >= 2 }
-      .map { |date_array| date_array[0].to_s }
-  end 
 end
