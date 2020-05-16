@@ -6,7 +6,7 @@ class Service < ApplicationRecord
   after_initialize :default_values
 
   validates :name, length: { minimum: 2 }
-  validates :description, length: { maximum: 500 }
+  validates :description, length: { maximum: 3000 }
   validates :price, numericality: true
   validates :time_to_answer, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :disponibility, presence: true
