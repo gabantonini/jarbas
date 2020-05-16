@@ -2,16 +2,20 @@
 	<h1>Gerencia aqui suas disponibilidades de agenda</h1>
 	<div class="row my-4">
 		<div class="col-6 pr-4">
-			<h2>As datas que você marcou como indisponível</h2>
-			<% @calendars.each do |calendar| %>
-				<div class="card">
-					<div class="d-flex justify-content-between p-2">
-					<p><%= calendar.date %></p>
-					<%= link_to user_calendar_path(calendar), method: :delete, data: { confirm: "Você quer retirar esse bloqueio de agenda?" } do %>
-						<i class="fas fa-trash-alt"></i>
-					<% end %>
+			<% if @calendars.empty? %>
+				<h2>Você não tem restrição de data</h2>
+			<% else %>
+				<h2>As datas que você marcou como indisponível</h2>		
+				<% @calendars.each do |calendar| %>
+					<div class="card">
+						<div class="d-flex justify-content-between p-2">
+						<p><%= calendar.date %></p>
+						<%= link_to user_calendar_path(calendar), method: :delete, data: { confirm: "Você quer retirar esse bloqueio de agenda?" } do %>
+							<i class="fas fa-trash-alt"></i>
+						<% end %>
+						</div>
 					</div>
-				</div>
+				<% end %>
 			<% end %>
 		</div>
 		<div class="col-6 pl-4">
