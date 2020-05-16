@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_05_15_004455) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "service_category_id"
+    t.float "avg_rating"
     t.index ["service_category_id"], name: "index_services_on_service_category_id"
     t.index ["user_id"], name: "index_services_on_user_id"
   end
