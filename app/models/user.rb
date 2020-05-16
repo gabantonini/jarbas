@@ -13,6 +13,7 @@ class User < ApplicationRecord
          has_many :service_categories, through: :services
          has_many :bookings, dependent: :destroy
          has_many :reviews, through: :bookings, dependent: :destroy
+         has_many :user_calendars
          belongs_to :condominio
 
   def blocked_dates
@@ -26,4 +27,5 @@ class User < ApplicationRecord
       .select { |date_array| date_array[1] >= 2 }
       .map { |date_array| date_array[0].to_s }
   end 
+
 end
