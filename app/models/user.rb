@@ -24,9 +24,7 @@ class User < ApplicationRecord
       .select { |date_array| date_array[1] >= 2 }
       .map { |date_array| date_array[0].to_s }
 
-    calendar_dates = calendar_dates
-
-    blocked_dates = (full_dates + calendar_dates).uniq
+    return blocked_dates = (full_dates + calendar_dates).uniq
   end
 
   def bookings_by_date
@@ -38,8 +36,8 @@ class User < ApplicationRecord
   end
 
   def calendar_dates
-    UserCalendar
-      .where('user_id = ? AND date >= ?', self, Date.today)
+    UserCalendar.where('user_id = ? AND date >= ?', id, Date.today)
       .map { |calendar| calendar.date.to_s }
+      .to_a
   end
 end
