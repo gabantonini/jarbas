@@ -48,6 +48,12 @@ ActiveRecord::Schema.define(version: 2020_05_16_001823) do
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
+  create_table "condominios", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.text "content"
     t.integer "rating"
@@ -74,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_05_16_001823) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "service_category_id"
+    t.float "avg_rating"
     t.index ["service_category_id"], name: "index_services_on_service_category_id"
     t.index ["user_id"], name: "index_services_on_user_id"
   end
@@ -103,6 +110,8 @@ ActiveRecord::Schema.define(version: 2020_05_16_001823) do
     t.string "last_name"
     t.string "address"
     t.string "zip_code"
+    t.bigint "condominio_id"
+    t.index ["condominio_id"], name: "index_users_on_condominio_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -114,4 +123,5 @@ ActiveRecord::Schema.define(version: 2020_05_16_001823) do
   add_foreign_key "services", "service_categories"
   add_foreign_key "services", "users"
   add_foreign_key "user_calendars", "users"
+  add_foreign_key "users", "condominios"
 end

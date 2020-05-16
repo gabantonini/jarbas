@@ -2,7 +2,7 @@ class Booking < ApplicationRecord
   belongs_to :service
   belongs_to :user
   has_one :review, dependent: :destroy
-  validate :date_need_to_be_later_than_time_to_answer, on: :create
+  validate :date_need_to_be_later_than_time_to_answer
   
   def pending_confirmation?
     self.status == "Aguardando confirmação"
@@ -36,7 +36,7 @@ class Booking < ApplicationRecord
   private 
 
   def date_need_to_be_later_than_time_to_answer
-    if date < Date.today + self.service.time_to_answer
+    if date < Date.today + self.service.time_to_answer && self.date_changed?
       errors.add(:date, "O usuário solicitou ser avisado com #{self.service.time_to_answer} dia#{"s" if self.service.time_to_answer > 1} de antecedência")
     end
   end
