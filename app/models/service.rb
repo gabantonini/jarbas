@@ -1,8 +1,8 @@
 class Service < ApplicationRecord
   belongs_to :user
   has_one_attached :photo
-  has_many :bookings
-  has_many :reviews, through: :bookings
+  has_many :bookings, dependent: :destroy
+  has_many :reviews, through: :bookings, dependent: :destroy
   after_initialize :default_values
 
   validates :name, length: { minimum: 2 }

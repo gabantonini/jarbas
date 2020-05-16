@@ -11,6 +11,10 @@ class ServicesController < ApplicationController
     @services = Service.where("name ILIKE ?", "%#{@query}%").order("avg_rating DESC")
   end
 
+  def my_services
+    @my_services = Service.where("user_id = ?", current_user.id)
+  end
+
   def show
     @services = Service.where("name ILIKE ?", "%#{params[:query]}%")
     @next_service = next_service(@service, @services)
@@ -36,7 +40,7 @@ class ServicesController < ApplicationController
 
   def destroy
     @service.destroy
-    redirect_to services_path
+    redirect_to my_services_path
   end
 
   private

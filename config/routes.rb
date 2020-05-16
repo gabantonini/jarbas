@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   root to: 'pages#home'
-
+  get '/my_services', to: 'services#my_services'
   resources :services do
     resources :bookings , only: [:new, :create]
 
