@@ -111,6 +111,8 @@ ActiveRecord::Schema.define(version: 2020_05_16_001823) do
     t.string "address"
     t.string "zip_code"
     t.bigint "condominio_id"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["condominio_id"], name: "index_users_on_condominio_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

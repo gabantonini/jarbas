@@ -64,30 +64,31 @@
                 <div class="buttons d-flex justify-content-around">
                     <% if booking.pending_confirmation?  %>
 
-                    <%= form_for booking do |fa| %>
-                    <%= fa.hidden_field :status, value: "Confirmado" %>
-                    <%= fa.submit "Confirmar", class: "btn btn-sm btn-outline-success" %>
+                    <%= form_for booking, remote: true do |fa| %>
+                        <%= fa.hidden_field :status, value: "Confirmado" %>
+                        <%= fa.submit "Confirmar", class: "btn btn-sm btn-outline-success" %>
                     <% end %>
 
-                    <%= form_for booking do |fa| %>
-                    <%= fa.hidden_field :status, value: "Declinado" %>
-                    <%= fa.submit "Rejeitar", class: "btn btn-sm btn-outline-danger" %>
+                    <%= form_for booking, remote: true do |fa| %>
+                        <%= fa.hidden_field :status, 
+                            value: "Declinado", 
+                            data: { confirm: "Tem certeza que quer declinar esse serviço?" }
+                        %>
+                        <%= fa.submit "Rejeitar", class: "btn btn-sm btn-outline-danger" %>
                     <% end %>
 
                     <% end %>
 
                     <% if booking.confirmed?  %>
-                    <%= form_for booking, data: {confirm: "Are you sure ?"} do |fa| %>
-                    <%= fa.hidden_field :status, value: "Cancelado" %>
-                    <%= fa.submit "Cancelar", class: "btn btn-sm btn-outline-dark" %>
-                    <% end %>
+                        <%= form_for booking, data: {confirm: "Are you sure ?"}, remote: true do |fa| %>
+                            <%= fa.hidden_field :status, value: "Cancelado" %>
+                            <%= fa.submit "Cancelar", class: "btn btn-sm btn-outline-dark" %>
+                        <% end %>
 
-                   <%= form_for booking, data: {confirm: "Are you sure ?"} do |fa| %>
-                    <%= fa.hidden_field :status, value: "Realizado" %>
-                    <%= fa.submit "Realizado", class: "btn btn-sm btn-outline-success" %>
-                    <% end %>
-                    
-
+                        <%= form_for booking, data: {confirm: "Are you sure ?"}, remote: true do |fa| %>
+                            <%= fa.hidden_field :status, value: "Realizado" %>
+                            <%= fa.submit "Realizado", class: "btn btn-sm btn-outline-success" %>
+                        <% end %>
                     <% end %>
 
                 </div>
