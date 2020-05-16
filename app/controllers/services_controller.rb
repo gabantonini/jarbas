@@ -12,7 +12,8 @@ class ServicesController < ApplicationController
   end
 
   def my_services
-    @my_services = Service.where("user_id = ?", current_user.id)
+    @my_services = Service.where(user: current_user)
+
   end
 
   def show
